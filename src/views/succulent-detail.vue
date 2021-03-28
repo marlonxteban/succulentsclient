@@ -51,6 +51,10 @@
             <i class="fas fa-save"></i>
             <span>Save</span>
           </button>
+          <button class="link card-footer-item" @click="deleteSucculent()">
+            <i class="fas fa-trash"></i>
+            <span>Delete</span>
+          </button>
         </footer>
       </div>
     </div>
@@ -114,6 +118,16 @@ export default {
         this.succulent.id
           ? await dataService.updateSucculent(this.succulent, token)
           : await dataService.addSucculent(this.succulent, token);
+        this.$router.push({ name: 'succulents' });
+      } catch (error) {
+        this.$router.push({ name: 'auth-required' });
+        return;
+      }
+    },
+    async deleteSucculent() {
+      try {
+        const token = await this.$auth.getTokenSilently();
+        await dataService.deleteSucculent(this.succulent.id, token);
         this.$router.push({ name: 'succulents' });
       } catch (error) {
         this.$router.push({ name: 'auth-required' });

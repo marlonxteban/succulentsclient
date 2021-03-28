@@ -83,6 +83,18 @@ const getSucculent = async function(id, token) {
   }
 };
 
+const deleteSucculent = async function(id, token) {
+  try {
+    let config = getAuthConfig(token);
+    const response = await axios.delete(`${API}/succulents/${id}`, config);
+    let succulent = parseItem(response, 'deleted', 200);
+    return succulent;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateSucculent = async function(succulent, token) {
   try {
     let config = getAuthConfig(token);
@@ -91,7 +103,7 @@ const updateSucculent = async function(succulent, token) {
       succulent,
       config
     );
-    const updatedSucculent = parseItem(response, 200);
+    const updatedSucculent = parseItem(response, 'updated', 200);
     return updatedSucculent;
   } catch (error) {
     console.error(error);
@@ -103,41 +115,8 @@ const addSucculent = async function(succulent, token) {
   try {
     let config = getAuthConfig(token);
     const response = await axios.post(`${API}/succulents`, succulent, config);
-    const addedSucculent = parseItem(response, 201);
+    const addedSucculent = parseItem(response, 'created', 201);
     return addedSucculent;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
-const getVillains = async function() {
-  try {
-    const response = await axios.get(`${API}/villains`);
-    let villains = parseList(response);
-    return villains;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
-const getVillain = async function(id) {
-  try {
-    const response = await axios.get(`${API}/villains/${id}`);
-    let villain = parseItem(response, 200);
-    return villain;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
-const updateVillain = async function(villain) {
-  try {
-    const response = await axios.put(`${API}/villains/${villain.id}`, villain);
-    const updatedVillain = parseItem(response, 200);
-    return updatedVillain;
   } catch (error) {
     console.error(error);
     return null;
@@ -170,9 +149,7 @@ export const dataService = {
   addFamily,
   getSucculents,
   getSucculent,
+  deleteSucculent,
   updateSucculent,
   addSucculent,
-  getVillains,
-  getVillain,
-  updateVillain,
 };
