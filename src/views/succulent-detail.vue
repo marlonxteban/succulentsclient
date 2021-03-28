@@ -17,6 +17,19 @@
               <input class="input" name="name" v-model="succulent.name" />
             </div>
             <div class="field">
+              <label class="label" for="name">family</label>
+              <select v-model="succulent.family_id">
+                <option value="" selected disabled>Choose</option>
+                <option
+                  v-for="family in families"
+                  :value="family.id"
+                  :key="family.id"
+                >
+                  {{ family.name }}
+                </option>
+              </select>
+            </div>
+            <div class="field">
               <label class="label" for="life_time">life time</label>
               <input
                 class="input"
@@ -58,18 +71,26 @@ export default {
   data() {
     return {
       succulent: {},
+      families: [],
     };
   },
   async created() {
+    this.families = await dataService.getFamilies();
     if (this.isAddMode) {
-      this.hero = {
+      this.succulent = {
         id: undefined,
-        firstName: '',
-        lastName: '',
-        description: '',
+        name: '',
+        life_time: '',
+        family_id: '',
       };
     } else {
-      this.succulent = await dataService.getSucculent(this.id);
+      try {
+        const token = await this.$auth.getTokenSilently();
+        this.succulent = await dataService.getSucculent(this.id, token);
+      } catch (error) {
+        this.$router.push({ name: 'auth-required' });
+        return;
+      }
     }
   },
   computed: {
@@ -88,10 +109,16 @@ export default {
       this.$router.push({ name: 'succulents' });
     },
     async saveSucculent() {
-      this.succulent.id
-        ? await dataService.updateSucculent(this.succulent)
-        : await dataService.addSucculent(this.succulent);
-      this.$router.push({ name: 'succulents' });
+      try {
+        const token = await this.$auth.getTokenSilently();
+        this.succulent.id
+          ? await dataService.updateSucculent(this.succulent, token)
+          : await dataService.addSucculent(this.succulent, token);
+        this.$router.push({ name: 'succulents' });
+      } catch (error) {
+        this.$router.push({ name: 'auth-required' });
+        return;
+      }
     },
   },
 };

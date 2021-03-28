@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import PageNotFound from './views/page-not-found';
+import AuthenticationRequired from './views/authentication-required';
 
 Vue.use(Router);
 const parseProps = r => ({ id: parseInt(r.params.id) });
@@ -49,6 +50,11 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ './views/about.vue'),
+    },
+    {
+      path: '/auth-required',
+      name: 'auth-required',
+      component: AuthenticationRequired,
     },
     {
       path: '*',

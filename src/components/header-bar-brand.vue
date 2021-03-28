@@ -12,6 +12,7 @@
       <span class="tour">SUCCULENTS</span>
       <span class="heroes">CLIENT</span>
     </div>
+    <AuthNav />
     <button
       class="link navbar-burger burger"
       aria-label="menu"
@@ -24,3 +25,10 @@
     </button>
   </div>
 </template>
+<script>
+import AuthNav from '@/components/AuthNav';
+
+export default {
+  components: { AuthNav },
+};
+</script>

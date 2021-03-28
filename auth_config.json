@@ -1,0 +1,6 @@
+{
+    "domain": "marlonxteban.us.auth0.com",
+    "clientId": "Ydo84ZIsTpJnK1h6yi7vJyfThUq76SXW",
+    "audience": "succulents",
+    "serverUrl": "http://localhost:8080"
+}

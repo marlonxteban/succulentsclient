@@ -12,7 +12,7 @@
             class="button add-button"
             :to="{ name: 'succulent-detail', params: { id: 0 } }"
           >
-          <i class="fas fa-plus"></i>
+            <i class="fas fa-plus"></i>
           </router-link>
           <ul>
             <li v-for="succulent in succulents" :key="succulent.id">

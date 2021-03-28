@@ -101,10 +101,16 @@ export default {
       this.$router.push({ name: 'families' });
     },
     async saveFamily() {
-      this.family.id
-        ? await dataService.updateFamily(this.family)
-        : await dataService.addFamily(this.family);
-      this.$router.push({ name: 'families' });
+      try {
+        const token = await this.$auth.getTokenSilently();
+        this.family.id
+          ? await dataService.updateFamily(this.family, token)
+          : await dataService.addFamily(this.family, token);
+        this.$router.push({ name: 'families' });
+      } catch (error) {
+        this.$router.push({ name: 'auth-required' });
+        return;
+      }
     },
   },
 };

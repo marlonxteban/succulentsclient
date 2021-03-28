@@ -2,6 +2,12 @@ import * as axios from 'axios';
 
 import { API } from './config';
 
+let getAuthConfig = function(token) {
+  return {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+};
+
 const getFamilies = async function() {
   try {
     const response = await axios.get(`${API}/families`);
@@ -25,9 +31,14 @@ const getFamily = async function(id) {
   }
 };
 
-const updateFamily = async function(family) {
+const updateFamily = async function(family, token) {
   try {
-    const response = await axios.put(`${API}/families/${family.id}`, family);
+    let config = getAuthConfig(token);
+    const response = await axios.patch(
+      `${API}/families/${family.id}`,
+      family,
+      config
+    );
     const updatedFamily = parseItem(response, 'updated', 200);
     return updatedFamily;
   } catch (error) {
@@ -36,9 +47,10 @@ const updateFamily = async function(family) {
   }
 };
 
-const addFamily = async function(family) {
+const addFamily = async function(family, token) {
   try {
-    const response = await axios.post(`${API}/families`, family);
+    let config = getAuthConfig(token);
+    const response = await axios.post(`${API}/families`, family, config);
     const addedFamily = parseItem(response, 'created', 200);
     return addedFamily;
   } catch (error) {
@@ -59,10 +71,11 @@ const getSucculents = async function() {
   }
 };
 
-const getSucculent = async function(id) {
+const getSucculent = async function(id, token) {
   try {
-    const response = await axios.get(`${API}/succulents/${id}`);
-    let succulent = parseItem(response, 200);
+    let config = getAuthConfig(token);
+    const response = await axios.get(`${API}/succulents/${id}`, config);
+    let succulent = parseItem(response, 'succulent', 200);
     return succulent;
   } catch (error) {
     console.error(error);
@@ -70,11 +83,13 @@ const getSucculent = async function(id) {
   }
 };
 
-const updateSucculent = async function(succulent) {
+const updateSucculent = async function(succulent, token) {
   try {
-    const response = await axios.put(
+    let config = getAuthConfig(token);
+    const response = await axios.patch(
       `${API}/succulents/${succulent.id}`,
-      succulent
+      succulent,
+      config
     );
     const updatedSucculent = parseItem(response, 200);
     return updatedSucculent;
@@ -84,9 +99,10 @@ const updateSucculent = async function(succulent) {
   }
 };
 
-const addSucculent = async function(succulent) {
+const addSucculent = async function(succulent, token) {
   try {
-    const response = await axios.post(`${API}/succulents`, succulent);
+    let config = getAuthConfig(token);
+    const response = await axios.post(`${API}/succulents`, succulent, config);
     const addedSucculent = parseItem(response, 201);
     return addedSucculent;
   } catch (error) {
