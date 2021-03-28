@@ -1,7 +1,7 @@
 # succulentsclient
 Fron-End client for [succulents project](https://github.com/marlonxteban/succulents) (Based on John Papa [Vue: Getting Started example app](https://github.com/johnpapa/vue-getting-started)).
 
-## Api Setup
+## App Setup
 1. Install the packages.
 ``` bash
 npm install
