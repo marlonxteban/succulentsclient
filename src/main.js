@@ -6,6 +6,10 @@ import router from './router';
 import { domain, clientId, audience } from '../auth_config.json';
 import { Auth0Plugin } from '@/auth/auth0-plugin';
 
+domain = process.env.DOMAIN || domain;
+clientId = process.env.CLIENTID || clientId;
+audience = process.env.AUDIENCE || audience;
+
 // Install the authentication plugin
 Vue.use(Auth0Plugin, {
   domain,
