@@ -28,7 +28,7 @@ const getFamily = async function(id) {
 const updateFamily = async function(family) {
   try {
     const response = await axios.put(`${API}/families/${family.id}`, family);
-    const updatedFamily = parseItem(response, 200);
+    const updatedFamily = parseItem(response, 'updated', 200);
     return updatedFamily;
   } catch (error) {
     console.error(error);
@@ -39,7 +39,7 @@ const updateFamily = async function(family) {
 const addFamily = async function(family) {
   try {
     const response = await axios.post(`${API}/families`, family);
-    const addedFamily = parseItem(response, 201);
+    const addedFamily = parseItem(response, 'created', 200);
     return addedFamily;
   } catch (error) {
     console.error(error);

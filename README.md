@@ -1,2 +1,2 @@
 # succulentsclient
-Fron-End client for succulents project.
+Fron-End client for [succulents project](https://github.com/marlonxteban/succulents) (Based on John Papa [Vue: Getting Started example app](https://github.com/johnpapa/vue-getting-started)).
