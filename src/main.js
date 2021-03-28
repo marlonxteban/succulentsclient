@@ -3,7 +3,11 @@ import App from '@/app';
 import router from './router';
 
 // Import the Auth0 configuration and plugin
-import { domain as localDomain, clientId as localClientId, audience as localAudience} from '../auth_config.json';
+import {
+  domain as localDomain,
+  clientId as localClientId,
+  audience as localAudience,
+} from '../auth_config.json';
 import { Auth0Plugin } from '@/auth/auth0-plugin';
 
 const domain = process.env.DOMAIN || localDomain;

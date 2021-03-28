@@ -33,6 +33,7 @@
               <label class="label" for="life_time">life time</label>
               <input
                 class="input"
+                type="number"
                 name="life_time"
                 v-model="succulent.life_time"
               />
