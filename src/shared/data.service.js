@@ -127,7 +127,7 @@ const addSucculent = async function(succulent, token) {
   try {
     let config = getAuthConfig(token);
     const response = await axios.post(`${API}/succulents`, succulent, config);
-    const addedSucculent = parseItem(response, 'created', 201);
+    const addedSucculent = parseItem(response, 'created', 200);
     return addedSucculent;
   } catch (error) {
     console.error(error);
