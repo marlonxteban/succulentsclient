@@ -6,15 +6,15 @@ import router from './router';
 import { domain, clientId, audience } from '../auth_config.json';
 import { Auth0Plugin } from '@/auth/auth0-plugin';
 
-domain = process.env.DOMAIN || domain;
-clientId = process.env.CLIENTID || clientId;
-audience = process.env.AUDIENCE || audience;
+const actualDomain = process.env.DOMAIN || domain;
+const actualClientId = process.env.CLIENTID || clientId;
+const actualAudience = process.env.AUDIENCE || audience;
 
 // Install the authentication plugin
 Vue.use(Auth0Plugin, {
-  domain,
-  clientId,
-  audience,
+  actualDomain,
+  actualClientId,
+  actualAudience,
   onRedirectCallback: appState => {
     router.push(
       appState && appState.targetUrl
