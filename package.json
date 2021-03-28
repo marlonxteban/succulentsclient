@@ -10,6 +10,7 @@
     "dev": "concurrently \"npm run backend\" \"npm run serve\""
   },
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.14.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",

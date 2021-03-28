@@ -50,6 +50,10 @@
             <i class="fas fa-save"></i>
             <span>Save</span>
           </button>
+          <button class="link card-footer-item" @click="deleteFamily()">
+            <i class="fas fa-trash"></i>
+            <span>Delete</span>
+          </button>
         </footer>
       </div>
     </div>
@@ -106,6 +110,16 @@ export default {
         this.family.id
           ? await dataService.updateFamily(this.family, token)
           : await dataService.addFamily(this.family, token);
+        this.$router.push({ name: 'families' });
+      } catch (error) {
+        this.$router.push({ name: 'auth-required' });
+        return;
+      }
+    },
+    async deleteFamily() {
+      try {
+        const token = await this.$auth.getTokenSilently();
+        await dataService.deleteFamily(this.family.id, token);
         this.$router.push({ name: 'families' });
       } catch (error) {
         this.$router.push({ name: 'auth-required' });

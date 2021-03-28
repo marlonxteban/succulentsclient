@@ -31,6 +31,18 @@ const getFamily = async function(id) {
   }
 };
 
+const deleteFamily = async function(id, token) {
+  try {
+    let config = getAuthConfig(token);
+    const response = await axios.delete(`${API}/families/${id}`, config);
+    let family = parseItem(response, 'deleted', 200);
+    return family;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 const updateFamily = async function(family, token) {
   try {
     let config = getAuthConfig(token);
@@ -145,6 +157,7 @@ export const parseItem = (response, fieldName, code) => {
 export const dataService = {
   getFamilies,
   getFamily,
+  deleteFamily,
   updateFamily,
   addFamily,
   getSucculents,
